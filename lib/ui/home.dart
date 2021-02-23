@@ -17,9 +17,25 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView.builder(
       itemCount: 0,
-      itemBuilder: (context, index) {
-        return Container();
-      },
+      itemBuilder: (context, index) => _ListItem(index: index),
+    );
+  }
+}
+
+class _ListItem extends StatelessWidget {
+  final int _index;
+
+  const _ListItem({
+    Key? key,
+    required int index,
+  })   : _index = index,
+        super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      title: const Text(''),
+      subtitle: const Text(''),
     );
   }
 }
