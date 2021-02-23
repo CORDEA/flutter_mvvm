@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/ui/home.dart';
 
 class App extends StatelessWidget {
   @override
@@ -8,7 +9,7 @@ class App extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: Center(),
+      home: Home(),
     );
   }
 }
