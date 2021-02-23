@@ -17,13 +17,11 @@ class Question {
   final List<String> tags;
   final Owner owner;
   final String title;
-  final String body;
 
   Question(
     this.tags,
     this.owner,
     this.title,
-    this.body,
   );
 
   factory Question.fromJson(Map<String, dynamic> json) =>
