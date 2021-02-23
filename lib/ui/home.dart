@@ -6,7 +6,7 @@ import 'package:provider/provider.dart';
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Provider(
+    return ChangeNotifierProvider(
       create: (context) => HomeViewModel(context.read()),
       child: _Home(),
     );
