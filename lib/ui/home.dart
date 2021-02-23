@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/response/question.dart';
 import 'package:flutter_mvvm/ui/home_view_model.dart';
 import 'package:flutter_mvvm/ui/initializer.dart';
 import 'package:provider/provider.dart';
@@ -30,9 +31,12 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Initializer(
       init: (context) => context.read<HomeViewModel>().fetch(),
-      build: (context) => ListView.builder(
-        itemCount: 0,
-        itemBuilder: (context, index) => _ListItem(index: index),
+      build: (context) => Selector<HomeViewModel, int>(
+        selector: (_, viewModel) => viewModel.questions.length,
+        builder: (_, length, __) => ListView.builder(
+          itemCount: length,
+          itemBuilder: (_, index) => _ListItem(index: index),
+        ),
       ),
     );
   }
@@ -49,9 +53,11 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var item = context
+        .select<HomeViewModel, Question>((value) => value.questions[_index]);
     return ListTile(
-      title: const Text(''),
-      subtitle: const Text(''),
+      title: Text(item.title),
+      subtitle: Text(item.owner.displayName),
     );
   }
 }
