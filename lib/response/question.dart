@@ -3,6 +3,16 @@ import 'package:json_annotation/json_annotation.dart';
 part 'question.g.dart';
 
 @JsonSerializable()
+class Questions {
+  final List<Question> items;
+
+  Questions(this.items);
+
+  factory Questions.fromJson(Map<String, dynamic> json) =>
+      _$QuestionsFromJson(json);
+}
+
+@JsonSerializable()
 class Question {
   final List<String> tags;
   final Owner owner;
