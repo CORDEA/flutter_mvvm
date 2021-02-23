@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/ui/home_view_model.dart';
+import 'package:flutter_mvvm/ui/initializer.dart';
 import 'package:provider/provider.dart';
 
 class Home extends StatelessWidget {
@@ -27,9 +28,12 @@ class _Home extends StatelessWidget {
 class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 0,
-      itemBuilder: (context, index) => _ListItem(index: index),
+    return Initializer(
+      init: (context) => context.read<HomeViewModel>().fetch(),
+      build: (context) => ListView.builder(
+        itemCount: 0,
+        itemBuilder: (context, index) => _ListItem(index: index),
+      ),
     );
   }
 }
