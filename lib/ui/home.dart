@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mvvm/ui/details.dart';
 import 'package:flutter_mvvm/ui/home_view_model.dart';
 import 'package:flutter_mvvm/ui/initializer.dart';
 import 'package:provider/provider.dart';
@@ -35,6 +36,9 @@ class _Body extends StatelessWidget {
         await for (final event in viewModel.event) {
           switch (event.runtimeType) {
             case NavigateToDetails:
+              Navigator.of(context).push(
+                Details.route((event as NavigateToDetails).question),
+              );
               break;
           }
         }

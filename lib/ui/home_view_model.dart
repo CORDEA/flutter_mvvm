@@ -28,7 +28,7 @@ class HomeViewModel extends ChangeNotifier {
   }
 
   void onItemTapped(int index) {
-    _event.add(NavigateToDetails());
+    _event.add(NavigateToDetails(_questions[index]._question));
   }
 
   @override
@@ -54,5 +54,7 @@ class HomeEvent {
 }
 
 class NavigateToDetails extends HomeEvent {
-  NavigateToDetails() : super._();
+  final Question question;
+
+  NavigateToDetails(this.question) : super._();
 }
