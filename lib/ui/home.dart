@@ -29,7 +29,16 @@ class _Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Initializer(
-      init: (context) => context.read<HomeViewModel>().fetch(),
+      init: (context) async {
+        final viewModel = context.read<HomeViewModel>();
+        viewModel.fetch();
+        await for (final event in viewModel.event) {
+          switch (event.runtimeType) {
+            case NavigateToDetails:
+              break;
+          }
+        }
+      },
       build: (context) => Selector<HomeViewModel, int>(
         selector: (_, viewModel) => viewModel.questions.length,
         builder: (_, length, __) => ListView.builder(
@@ -56,6 +65,7 @@ class _ListItem extends StatelessWidget {
       (value) => value.questions[_index],
     );
     return ListTile(
+      onTap: () => context.read<HomeViewModel>().onItemTapped(_index),
       title: Text(item.title),
       subtitle: Text(item.displayName),
     );

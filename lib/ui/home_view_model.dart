@@ -7,11 +7,14 @@ import 'package:flutter_mvvm/response/question.dart';
 class HomeViewModel extends ChangeNotifier {
   final QuestionRepository _repository;
   List<HomeItemViewModel> _questions = [];
+  StreamController<HomeEvent> _event = StreamController();
   StreamSubscription? _subscription;
 
   HomeViewModel(this._repository);
 
   List<HomeItemViewModel> get questions => _questions;
+
+  Stream<HomeEvent> get event => _event.stream;
 
   void fetch() {
     _subscription = _repository
@@ -24,10 +27,15 @@ class HomeViewModel extends ChangeNotifier {
     });
   }
 
+  void onItemTapped(int index) {
+    _event.add(NavigateToDetails());
+  }
+
   @override
   void dispose() {
     super.dispose();
     _subscription?.cancel();
+    _event.close();
   }
 }
 
@@ -39,4 +47,12 @@ class HomeItemViewModel {
   String get title => _question.title;
 
   String get displayName => _question.owner.displayName;
+}
+
+class HomeEvent {
+  HomeEvent._();
+}
+
+class NavigateToDetails extends HomeEvent {
+  NavigateToDetails() : super._();
 }
