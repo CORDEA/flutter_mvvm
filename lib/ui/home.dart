@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_mvvm/response/question.dart';
 import 'package:flutter_mvvm/ui/home_view_model.dart';
 import 'package:flutter_mvvm/ui/initializer.dart';
 import 'package:provider/provider.dart';
@@ -53,11 +52,12 @@ class _ListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var item = context
-        .select<HomeViewModel, Question>((value) => value.questions[_index]);
+    var item = context.select<HomeViewModel, HomeItemViewModel>(
+      (value) => value.questions[_index],
+    );
     return ListTile(
       title: Text(item.title),
-      subtitle: Text(item.owner.displayName),
+      subtitle: Text(item.displayName),
     );
   }
 }
