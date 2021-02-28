@@ -30,6 +30,10 @@ class _Details extends StatelessWidget {
         title: const Text('Details'),
       ),
       body: _Body(),
+      floatingActionButton: FloatingActionButton(
+        child: const Icon(Icons.open_in_browser),
+        onPressed: () => context.read<DetailsViewModel>().onFabTapped(),
+      ),
     );
   }
 }
