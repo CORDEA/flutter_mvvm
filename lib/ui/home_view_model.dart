@@ -24,6 +24,8 @@ class HomeViewModel extends ChangeNotifier {
         .listen((value) {
       _questions = value;
       notifyListeners();
+    }, onError: (_) {
+      _event.add(ShowFetchErrorSnackBar());
     });
   }
 
@@ -57,4 +59,8 @@ class NavigateToDetails extends HomeEvent {
   final Question question;
 
   NavigateToDetails(this.question) : super._();
+}
+
+class ShowFetchErrorSnackBar extends HomeEvent {
+  ShowFetchErrorSnackBar() : super._();
 }

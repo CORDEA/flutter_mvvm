@@ -40,6 +40,11 @@ class _Body extends StatelessWidget {
                 Details.route((event as NavigateToDetails).question),
               );
               break;
+            case ShowFetchErrorSnackBar:
+              ScaffoldMessenger.of(context).showSnackBar(
+                _getFetchErrorSnackBar(),
+              );
+              break;
           }
         }
       },
@@ -49,6 +54,16 @@ class _Body extends StatelessWidget {
           itemCount: length,
           itemBuilder: (_, index) => _ListItem(index: index),
         ),
+      ),
+    );
+  }
+
+  SnackBar _getFetchErrorSnackBar() {
+    return SnackBar(
+      content: const Text('Failed to fetch'),
+      action: SnackBarAction(
+        label: 'Retry',
+        onPressed: () {},
       ),
     );
   }
