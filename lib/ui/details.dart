@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/response/question.dart';
+import 'package:flutter_mvvm/ui/details_view_model.dart';
+import 'package:provider/provider.dart';
 
 class Details extends StatelessWidget {
   static MaterialPageRoute route(Question question) =>
@@ -13,35 +15,26 @@ class Details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return _Details(question: _question);
+    return ChangeNotifierProvider(
+      create: (_) => DetailsViewModel(_question),
+      child: _Details(),
+    );
   }
 }
 
 class _Details extends StatelessWidget {
-  final Question _question;
-
-  const _Details({Key? key, required Question question})
-      : _question = question,
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Details'),
       ),
-      body: _Body(question: _question),
+      body: _Body(),
     );
   }
 }
 
 class _Body extends StatelessWidget {
-  final Question _question;
-
-  const _Body({Key? key, required Question question})
-      : _question = question,
-        super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -52,12 +45,15 @@ class _Body extends StatelessWidget {
             child: Container(
               padding: const EdgeInsets.all(16),
               width: double.infinity,
-              child: Text(
-                _question.title,
-                style: Theme.of(context).textTheme.headline5,
+              child: Selector<DetailsViewModel, String>(
+                selector: (_, viewModel) => viewModel.title,
+                builder: (_, title, __) => Text(
+                  title,
+                  style: Theme.of(context).textTheme.headline5,
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );
