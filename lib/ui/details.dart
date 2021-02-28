@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mvvm/response/question.dart';
 import 'package:flutter_mvvm/ui/details_view_model.dart';
+import 'package:flutter_mvvm/ui/initializer.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Details extends StatelessWidget {
   static MaterialPageRoute route(Question question) =>
@@ -25,14 +27,28 @@ class Details extends StatelessWidget {
 class _Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Details'),
-      ),
-      body: _Body(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.open_in_browser),
-        onPressed: () => context.read<DetailsViewModel>().onFabTapped(),
+    return Initializer(
+      init: (context) async {
+        await for (final event in context.read<DetailsViewModel>().event) {
+          switch (event.runtimeType) {
+            case OpenUrl:
+              final url = (event as OpenUrl).link;
+              if (await canLaunch(url)) {
+                await launch(url);
+              }
+              break;
+          }
+        }
+      },
+      build: (context) => Scaffold(
+        appBar: AppBar(
+          title: const Text('Details'),
+        ),
+        body: _Body(),
+        floatingActionButton: FloatingActionButton(
+          child: const Icon(Icons.open_in_browser),
+          onPressed: () => context.read<DetailsViewModel>().onFabTapped(),
+        ),
       ),
     );
   }
