@@ -22,6 +22,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
   return Question(
     (json['tags'] as List<dynamic>).map((e) => e as String).toList(),
     Owner.fromJson(json['owner'] as Map<String, dynamic>),
+    json['link'] as String,
     json['title'] as String,
   );
 }
@@ -29,6 +30,7 @@ Question _$QuestionFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'tags': instance.tags,
       'owner': instance.owner,
+      'link': instance.link,
       'title': instance.title,
     };
 

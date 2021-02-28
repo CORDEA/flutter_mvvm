@@ -16,11 +16,13 @@ class Questions {
 class Question {
   final List<String> tags;
   final Owner owner;
+  final String link;
   final String title;
 
   Question(
     this.tags,
     this.owner,
+    this.link,
     this.title,
   );
 
