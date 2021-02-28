@@ -33,6 +33,10 @@ class HomeViewModel extends ChangeNotifier {
     _event.add(NavigateToDetails(_questions[index]._question));
   }
 
+  void onRetried() {
+    fetch();
+  }
+
   @override
   void dispose() {
     super.dispose();

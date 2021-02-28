@@ -42,7 +42,7 @@ class _Body extends StatelessWidget {
               break;
             case ShowFetchErrorSnackBar:
               ScaffoldMessenger.of(context).showSnackBar(
-                _getFetchErrorSnackBar(),
+                _getFetchErrorSnackBar(context),
               );
               break;
           }
@@ -58,12 +58,12 @@ class _Body extends StatelessWidget {
     );
   }
 
-  SnackBar _getFetchErrorSnackBar() {
+  SnackBar _getFetchErrorSnackBar(BuildContext context) {
     return SnackBar(
       content: const Text('Failed to fetch'),
       action: SnackBarAction(
         label: 'Retry',
-        onPressed: () {},
+        onPressed: () => context.read<HomeViewModel>().onRetried(),
       ),
     );
   }
